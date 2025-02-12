@@ -43,9 +43,8 @@
     "test:nodes": "turbo run test:nodes --concurrency=1",
     "watch": "turbo run watch --parallel",
     "webhook": "./packages/cli/bin/n8n webhook",
-    "worker": "./packages/cli/bin/n8n worker",
-    "postinstall": "pnpm rebuild sqlite3"
-  },
+    "worker": "./packages/cli/bin/n8n worker"
+      },
   "devDependencies": {
     "@biomejs/biome": "^1.9.0",
     "@n8n_io/eslint-config": "workspace:*",
