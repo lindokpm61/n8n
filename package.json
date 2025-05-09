@@ -72,6 +72,7 @@
     "tsc-watch": "^6.2.0",
     "turbo": "2.3.3",
     "typescript": "*",
+    "cheerio": "^1.0.0-rc.12",
     "zx": "^8.1.4"
   },
   "pnpm": {
