@@ -163,9 +163,6 @@ export interface FrontendSettings {
 	folders: {
 		enabled: boolean;
 	};
-	logsView: {
-		enabled: boolean;
-	};
 	banners: {
 		dismissed: string[];
 	};
@@ -194,5 +191,8 @@ export interface FrontendSettings {
 		summary: boolean;
 		dashboard: boolean;
 		dateRanges: InsightsDateRange[];
+	};
+	evaluation: {
+		quota: number;
 	};
 }
