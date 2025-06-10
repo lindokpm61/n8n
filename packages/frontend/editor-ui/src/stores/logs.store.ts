@@ -1,13 +1,14 @@
-import {
-	LOG_DETAILS_PANEL_STATE,
-	LOGS_PANEL_STATE,
-	type LogDetailsPanelState,
-} from '@/components/CanvasChat/types/logs';
+import { type LogDetailsPanelState } from '@/features/logs/logs.types';
 import { useTelemetry } from '@/composables/useTelemetry';
-import { LOCAL_STORAGE_LOGS_PANEL_DETAILS_PANEL, LOCAL_STORAGE_LOGS_PANEL_OPEN } from '@/constants';
+import {
+	LOCAL_STORAGE_LOGS_PANEL_DETAILS_PANEL,
+	LOCAL_STORAGE_LOGS_PANEL_OPEN,
+	LOCAL_STORAGE_LOGS_SYNC_SELECTION,
+} from '@/constants';
 import { useLocalStorage } from '@vueuse/core';
 import { defineStore } from 'pinia';
 import { computed, ref } from 'vue';
+import { LOG_DETAILS_PANEL_STATE, LOGS_PANEL_STATE } from '@/features/logs/logs.constants';
 
 export const useLogsStore = defineStore('logs', () => {
 	const isOpen = useLocalStorage(LOCAL_STORAGE_LOGS_PANEL_OPEN, false);
@@ -25,6 +26,8 @@ export const useLogsStore = defineStore('logs', () => {
 		LOG_DETAILS_PANEL_STATE.OUTPUT,
 		{ writeDefaults: false },
 	);
+	const isLogSelectionSyncedWithCanvas = useLocalStorage(LOCAL_STORAGE_LOGS_SYNC_SELECTION, false);
+
 	const telemetry = useTelemetry();
 
 	function setHeight(value: number) {
@@ -77,15 +80,21 @@ export const useLogsStore = defineStore('logs', () => {
 		});
 	}
 
+	function toggleLogSelectionSync(value?: boolean) {
+		isLogSelectionSyncedWithCanvas.value = value ?? !isLogSelectionSyncedWithCanvas.value;
+	}
+
 	return {
 		state,
 		isOpen: computed(() => state.value !== LOGS_PANEL_STATE.CLOSED),
 		detailsState: computed(() => detailsState.value),
 		height: computed(() => height.value),
+		isLogSelectionSyncedWithCanvas: computed(() => isLogSelectionSyncedWithCanvas.value),
 		setHeight,
 		toggleOpen,
 		setPreferPoppedOut,
 		toggleInputOpen,
 		toggleOutputOpen,
+		toggleLogSelectionSync,
 	};
 });
